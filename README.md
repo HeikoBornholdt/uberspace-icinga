@@ -25,7 +25,7 @@ Zuerst wird der Quelltext auf dem Uberspace herunterladen und anschließend entp
 
 Trotz des angegebenen Benutzers/der angegebenen Gruppe müssen wir noch händisch die Datei `Makefile` anpassen.
 
-In Zeile 48, bei `INSTALL_OPTS` muss `root` gegen den eigenen Benutzer-/Gruppennamen ausgetauscht werden.
+In Zeile 53, bei `INIT_OPTS` muss `root` gegen den eigenen Benutzer-/Gruppennamen ausgetauscht werden.
 
 Jetzt müssen noch ein paar Verzeichnisse/Symlinks erstellt werden, damit die Dateien direkt in den vorgesehenen Verzeichnissen landen:
 
