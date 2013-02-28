@@ -66,7 +66,7 @@ Nun wird die Weboberfläche von Icinga noch gegen unbefugte Zugriffe abgesichert
 
 Folgendes in die Datei `/var/www/virtual/$USER/html/icinga/.htaccess` schreiben (UBERSPACE anpassen!):
 
-    AuthName "Icing Access"
+    AuthName "Icinga Access"
     AuthType Basic
     AuthUserFile /var/www/virtual/UBERSPACE/html/icinga/.htpasswd
     Require valid-user
