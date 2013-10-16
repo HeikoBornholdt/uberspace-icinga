@@ -25,7 +25,7 @@ Zuerst wird der Quelltext auf dem Uberspace herunterladen und anschließend entp
 
 Trotz des angegebenen Benutzers/der angegebenen Gruppe müssen wir noch händisch die Datei `Makefile` anpassen.
 
-In Zeile 48, bei `INSTALL_OPTS` muss `root` gegen den eigenen Benutzer-/Gruppennamen ausgetauscht werden.
+In Zeile 53, bei `INIT_OPTS` muss `root` gegen den eigenen Benutzer-/Gruppennamen ausgetauscht werden.
 
 Jetzt müssen noch ein paar Verzeichnisse/Symlinks erstellt werden, damit die Dateien direkt in den vorgesehenen Verzeichnissen landen:
 
@@ -66,7 +66,7 @@ Nun wird die Weboberfläche von Icinga noch gegen unbefugte Zugriffe abgesichert
 
 Folgendes in die Datei `/var/www/virtual/$USER/html/icinga/.htaccess` schreiben (UBERSPACE anpassen!):
 
-    AuthName "Icing Access"
+    AuthName "Icinga Access"
     AuthType Basic
     AuthUserFile /var/www/virtual/UBERSPACE/html/icinga/.htpasswd
     Require valid-user
@@ -108,10 +108,10 @@ Die ganzen Skripte mit den Prüfroutinen (`check_xyz`) müssen separat installie
 Wer andere Server via NRPE überwachen möchte benötigt `check_nrpe`:
 
     cd ~/src/
-    wget http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-2.13/nrpe-2.13.tar.gz/download -O nrpe-2.13.tar.gz
-    tar xzf nrpe-2.13.tar.gz
+    wget http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-2.14/nrpe-2.14.tar.gz/download -O nrpe-2.14.tar.gz
+    tar xzf nrpe-2.14.tar.gz
 
-    cd nrpe-2.13/
+    cd nrpe-2.14/
     ./configure --prefix=/home/$USER/opt/icinga \
     --with-nagios-user=$USER \
     --with-nagios-group=$USER \
