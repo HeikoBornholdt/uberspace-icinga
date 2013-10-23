@@ -106,10 +106,10 @@ Die ganzen Skripte mit den Prüfroutinen (`check_xyz`) müssen separat installie
 Wer andere Server via NRPE überwachen möchte benötigt `check_nrpe`:
 
     cd ~/src/
-    wget http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-2.14/nrpe-2.14.tar.gz/download -O nrpe-2.14.tar.gz
-    tar xzf nrpe-2.14.tar.gz
+    wget http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-2.15/nrpe-2.15.tar.gz/download -O nrpe-2.15.tar.gz
+    tar xzf nrpe-2.15.tar.gz
 
-    cd nrpe-2.14/
+    cd nrpe-2.15/
     ./configure --prefix=/home/$USER/opt/icinga \
     --with-nagios-user=$USER \
     --with-nagios-group=$USER \
