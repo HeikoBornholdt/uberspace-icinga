@@ -8,10 +8,10 @@ Zuerst wird der Quelltext auf dem Uberspace herunterladen und anschließend entp
 
     mkdir ~/src
     cd ~/src/
-    wget http://sourceforge.net/projects/icinga/files/icinga/1.8.4/icinga-1.8.4.tar.gz
-    tar xzf icinga-1.8.4.tar.gz
+    wget http://sourceforge.net/projects/icinga/files/icinga/1.9.3/icinga-1.9.3.tar.gz
+    tar xzf icinga-1.9.3.tar.gz
 
-    cd icinga-1.8.4/
+    cd icinga-1.9.3/
     ./configure --prefix=/home/$USER/opt/icinga \
     --with-icinga-user=$USER \
     --with-icinga-group=$USER \
@@ -21,19 +21,19 @@ Zuerst wird der Quelltext auf dem Uberspace herunterladen und anschließend entp
     --with-web-group=$USER \
     --with-httpd-conf=/home/$USER/opt/icinga/etc/apache2 \
     --with-init-dir=/home/$USER/opt/icinga/etc/init.d \
-    --with-cgiurl=/cgi-bin/icinga
+    --with-cgiurl=/cgi-bin/icinga \
+    --disable-idoutils
 
 Trotz des angegebenen Benutzers/der angegebenen Gruppe müssen wir noch händisch die Datei `Makefile` anpassen.
 
-In Zeile 53, bei `INIT_OPTS` muss `root` gegen den eigenen Benutzer-/Gruppennamen ausgetauscht werden.
+In Zeile 55, bei `INIT_OPTS` muss `root` gegen den eigenen Benutzer-/Gruppennamen ausgetauscht werden.
 
 Jetzt müssen noch ein paar Verzeichnisse/Symlinks erstellt werden, damit die Dateien direkt in den vorgesehenen Verzeichnissen landen:
 
-    mkdir -p ~/opt/icinga
     mkdir -p ~/opt/icinga/var/rw
-    mkdir -p ~/opt/icinga/var/lock
+    mkdir ~/opt/icinga/var/lock
     mkdir -p ~/opt/icinga/etc/apache2
-    mkdir -p ~/opt/icinga/etc/init.d
+    mkdir ~/opt/icinga/etc/init.d
     mkdir /var/www/virtual/$USER/html/icinga
     mkdir /var/www/virtual/$USER/cgi-bin/icinga
     ln -s /var/www/virtual/$USER/cgi-bin/icinga ~/opt/icinga/sbin
@@ -42,10 +42,8 @@ Jetzt müssen noch ein paar Verzeichnisse/Symlinks erstellt werden, damit die Da
 Jetzt können wir Icinga kompilieren:
 
     make all
-    make install
-    make install-init
+    make fullinstall
     make install-config
-    make install-webconf
 
 Damit suEXEC die Ausführung der .cgi-Dateien nicht verweigert, müssen deren Zugriffsrechte angepasst werden:
 
@@ -92,10 +90,10 @@ Die ganzen Skripte mit den Prüfroutinen (`check_xyz`) müssen separat installie
 
     cd ~/src/
     
-    wget https://www.nagios-plugins.org/download/nagios-plugins-1.4.16.tar.gz
-    tar xzf nagios-plugins-1.4.16.tar.gz
+    wget https://www.nagios-plugins.org/download/nagios-plugins-1.5.tar.gz
+    tar xzf nagios-plugins-1.5.tar.gz
 
-    cd nagios-plugins-1.4.16/
+    cd nagios-plugins-1.5/
     ./configure --prefix=/home/$USER/opt/icinga \
     --with-nagios-user=$USER \
     --with-nagios-group=$USER 
@@ -108,10 +106,10 @@ Die ganzen Skripte mit den Prüfroutinen (`check_xyz`) müssen separat installie
 Wer andere Server via NRPE überwachen möchte benötigt `check_nrpe`:
 
     cd ~/src/
-    wget http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-2.14/nrpe-2.14.tar.gz/download -O nrpe-2.14.tar.gz
-    tar xzf nrpe-2.14.tar.gz
+    wget http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-2.15/nrpe-2.15.tar.gz/download -O nrpe-2.15.tar.gz
+    tar xzf nrpe-2.15.tar.gz
 
-    cd nrpe-2.14/
+    cd nrpe-2.15/
     ./configure --prefix=/home/$USER/opt/icinga \
     --with-nagios-user=$USER \
     --with-nagios-group=$USER \
