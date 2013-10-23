@@ -90,10 +90,10 @@ Die ganzen Skripte mit den Prüfroutinen (`check_xyz`) müssen separat installie
 
     cd ~/src/
     
-    wget https://www.nagios-plugins.org/download/nagios-plugins-1.4.16.tar.gz
-    tar xzf nagios-plugins-1.4.16.tar.gz
+    wget https://www.nagios-plugins.org/download/nagios-plugins-1.5.tar.gz
+    tar xzf nagios-plugins-1.5.tar.gz
 
-    cd nagios-plugins-1.4.16/
+    cd nagios-plugins-1.5/
     ./configure --prefix=/home/$USER/opt/icinga \
     --with-nagios-user=$USER \
     --with-nagios-group=$USER 
