@@ -8,10 +8,10 @@ Zuerst wird der Quelltext auf dem Uberspace herunterladen und anschließend entp
 
     mkdir ~/src
     cd ~/src/
-    wget http://sourceforge.net/projects/icinga/files/icinga/1.9.3/icinga-1.9.3.tar.gz
-    tar xzf icinga-1.9.3.tar.gz
+    wget http://sourceforge.net/projects/icinga/files/icinga/1.10.1/icinga-1.10.1.tar.gz
+    tar xzf icinga-1.10.1.tar.gz
 
-    cd icinga-1.9.3/
+    cd icinga-1.10.1/
     ./configure --prefix=/home/$USER/opt/icinga \
     --with-icinga-user=$USER \
     --with-icinga-group=$USER \
@@ -43,6 +43,9 @@ Jetzt können wir Icinga kompilieren:
 
     make all
     make fullinstall
+    
+Im Falle einer Neuinstallation muss die Konfigration erzuegt werden:
+
     make install-config
 
 Damit suEXEC die Ausführung der .cgi-Dateien nicht verweigert, müssen deren Zugriffsrechte angepasst werden:
