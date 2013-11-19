@@ -44,7 +44,7 @@ Jetzt können wir Icinga kompilieren:
     make all
     make fullinstall
     
-Im Falle einer Neuinstallation muss die Konfigration erzuegt werden:
+Im Falle einer Neuinstallation muss die Konfigration erzeugt werden:
 
     make install-config
 
