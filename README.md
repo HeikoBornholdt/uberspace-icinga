@@ -65,12 +65,10 @@ Nun wird die Weboberfläche von Icinga noch gegen unbefugte Zugriffe abgesichert
 
     htpasswd -s -c /var/www/virtual/$USER/html/icinga/.htpasswd icingaadmin
 
-Folgendes in die Datei `/var/www/virtual/$USER/html/icinga/.htaccess` schreiben (UBERSPACE anpassen!):
-
-    AuthName "Icinga Access"
+    echo 'AuthName "Icinga Access"
     AuthType Basic
-    AuthUserFile /var/www/virtual/UBERSPACE/html/icinga/.htpasswd
-    Require valid-user
+    AuthUserFile /var/www/virtual/'$USER'/html/icinga/.htpasswd
+    Require valid-user' > /var/www/virtual/$USER/html/icinga/.htaccess
 
 Die CGI-Skripte von Icinga sollten auch geschützt werden:
 
