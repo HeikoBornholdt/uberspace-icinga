@@ -8,10 +8,10 @@ Zuerst wird der Quelltext auf dem Uberspace herunterladen und anschließend entp
 
     mkdir ~/src
     cd ~/src/
-    wget http://sourceforge.net/projects/icinga/files/icinga/1.10.1/icinga-1.10.1.tar.gz
-    tar xzf icinga-1.10.1.tar.gz
+    wget https://github.com/Icinga/icinga-core/releases/download/v1.10.3/icinga-1.10.3.tar.gz
+    tar xzf icinga-1.10.3.tar.gz
 
-    cd icinga-1.10.1/
+    cd icinga-1.10.3/
     ./configure --prefix=/home/$USER/opt/icinga \
     --with-icinga-user=$USER \
     --with-icinga-group=$USER \
@@ -26,14 +26,14 @@ Zuerst wird der Quelltext auf dem Uberspace herunterladen und anschließend entp
 
 Trotz des angegebenen Benutzers/der angegebenen Gruppe müssen wir noch händisch die Datei `Makefile` anpassen.
 
-In Zeile 55, bei `INIT_OPTS` muss `root` gegen den eigenen Benutzer-/Gruppennamen ausgetauscht werden.
+In Zeile 58, bei `INIT_OPTS` muss `root` gegen den eigenen Benutzer-/Gruppennamen ausgetauscht werden.
+
+    sed -i "/^INIT_OPTS=/s/root/$USER/g" Makefile
 
 Jetzt müssen noch ein paar Verzeichnisse/Symlinks erstellt werden, damit die Dateien direkt in den vorgesehenen Verzeichnissen landen:
 
-    mkdir -p ~/opt/icinga/var/rw
-    mkdir ~/opt/icinga/var/lock
-    mkdir -p ~/opt/icinga/etc/apache2
-    mkdir ~/opt/icinga/etc/init.d
+    mkdir -p ~/opt/icinga/var/{rw,lock}
+    mkdir -p ~/opt/icinga/etc/{apache2,init.d}
     mkdir /var/www/virtual/$USER/html/icinga
     mkdir /var/www/virtual/$USER/cgi-bin/icinga
     ln -s /var/www/virtual/$USER/cgi-bin/icinga ~/opt/icinga/sbin
@@ -50,16 +50,19 @@ Im Falle einer Neuinstallation muss die Konfigration erzeugt werden:
 
 Damit suEXEC die Ausführung der .cgi-Dateien nicht verweigert, müssen deren Zugriffsrechte angepasst werden:
 
-    chmod 755 /var/www/virtual/$USER/cgi-bin/icinga/
-    chmod 755 /var/www/virtual/$USER/cgi-bin/icinga/*.cgi
+    chmod -R 755 /var/www/virtual/$USER/cgi-bin/icinga
 
 Nun muss die Datei `/home/$USER/opt/icinga/etc/icinga.cfg` angepasst werden:
 
 `use_syslog` ist dabei auf `0` zu setzen
 
+    sed -i '/use_syslog=1/s/1/0/' /home/$USER/opt/icinga/etc/icinga.cfg
+
 `/home/$USER/opt/icinga/etc/init.d/icinga` benötigt ebenfalls eine Anpassung: 
 
 `IcingaLockDir` ist dabei auf `${prefix}/var/lock/subsys` zu setzen.
+
+    sed -i '/^IcingaLockDir=/s/=/=${prefix}/' /home/$USER/opt/icinga/etc/init.d/icinga
 
 Nun wird die Weboberfläche von Icinga noch gegen unbefugte Zugriffe abgesichert:
 
@@ -91,10 +94,10 @@ Die ganzen Skripte mit den Prüfroutinen (`check_xyz`) müssen separat installie
 
     cd ~/src/
     
-    wget https://www.nagios-plugins.org/download/nagios-plugins-1.5.tar.gz
-    tar xzf nagios-plugins-1.5.tar.gz
+    wget wget https://www.nagios-plugins.org/download/nagios-plugins-2.0.tar.gz
+    tar xzf nagios-plugins-2.0.tar.gz
 
-    cd nagios-plugins-1.5/
+    cd nagios-plugins-2.0/
     ./configure --prefix=/home/$USER/opt/icinga \
     --with-nagios-user=$USER \
     --with-nagios-group=$USER 
