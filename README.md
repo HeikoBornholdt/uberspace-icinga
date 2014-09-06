@@ -64,14 +64,24 @@ Nun muss die Datei `/home/$USER/opt/icinga/etc/icinga.cfg` angepasst werden:
 
     sed -i '/^IcingaLockDir=/s/=/=${prefix}/' /home/$USER/opt/icinga/etc/init.d/icinga
 
-Nun wird die Weboberfläche von Icinga noch gegen unbefugte Zugriffe abgesichert:
+Nun wird die Weboberfläche von Icinga noch gegen unbefugte Zugriffe abgesichert. Damit deine Zugangsdaten nicht unverschlüsselt übertragen werden, wird SSL forciert:
 
-    htpasswd -s -c /var/www/virtual/$USER/html/icinga/.htpasswd icingaadmin
+```
+htpasswd -s -c /var/www/virtual/$USER/html/icinga/.htpasswd icingaadmin
+```
+```
+cat <<__EOF__ > /var/www/virtual/$USER/html/icinga/.htaccess
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteCond %{ENV:HTTPS} !=on
+RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
 
-    echo 'AuthName "Icinga Access"
-    AuthType Basic
-    AuthUserFile /var/www/virtual/'$USER'/html/icinga/.htpasswd
-    Require valid-user' > /var/www/virtual/$USER/html/icinga/.htaccess
+AuthName "Icinga Access"
+AuthType Basic
+AuthUserFile /var/www/virtual/$USER/html/icinga/.htpasswd
+Require valid-user
+__EOF__
+```
 
 Die CGI-Skripte von Icinga sollten auch geschützt werden:
 
