@@ -86,7 +86,21 @@ Icinga selber ist nun fertig installiert und kann auch schon gestartet werden:
   * Icinga-Konfiguration prüfen: `~/opt/icinga/etc/init.d/icinga checkconfig`
   * Icinga starten: `~/opt/icinga/etc/init.d/icinga start`
 
-Damit Icinga beim Neustart des Servers ebenfalls mitgestartet wird, wird ein daemontools-daemon benötigt.
+Damit Icinga beim Neustart des Servers ebenfalls mitgestartet wird, muss ein [daemon
+eingerichtet werden](https://wiki.uberspace.de/system:daemontools#einen_daemon_einrichten).
+Das run-Skript kann dabei wie folgt aussehen:
+
+    #!/bin/sh
+
+    # These environment variables are sometimes needed by the running daemons
+    export USER=DEIN_USERNAME
+    export HOME=/home/DEIN_USERNAME
+
+    # Include the user-specific profile
+    . $HOME/.bash_profile
+
+    # Now let's go!
+    exec ~/opt/icinga/bin/icinga ~/opt/icinga/etc/icinga.cfg 2>&1
 
 ### Nagios Plugins
 
