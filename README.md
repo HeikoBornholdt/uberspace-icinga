@@ -84,7 +84,9 @@ Jetzt noch Icinga ausführbar machen:
 Icinga selber ist nun fertig installiert und kann auch schon gestartet werden:
 
   * Icinga-Konfiguration prüfen: `~/opt/icinga/etc/init.d/icinga checkconfig`
-  * Icinga starten: `~/opt/icinga/etc/init.d/icinga start`
+  * Icinga steuern: `~/opt/icinga/etc/init.d/icinga {start|stop|restart|reload|force-reload|status|checkconfig|show-errors}`
+
+Icinga ist nun unter der URL `https://USERNAME.HOSTNAME.uberspace.de/icinga/` erreichbar.
 
 Damit Icinga beim Neustart des Servers ebenfalls mitgestartet wird, muss ein [daemon
 eingerichtet werden](https://wiki.uberspace.de/system:daemontools#einen_daemon_einrichten).
