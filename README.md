@@ -1,6 +1,6 @@
 # Icinga auf einem Uberspace betreiben
 
-Diese Anleitung basiert auf der Anleitung "Nagios ohne root-Rechte auf dem Uberspace" von Tom Förster (https://tom-f.org/blog/nagios-ohne-root-rechte-auf-dem-uberspace/) und wurde lediglich von mir an Icinga angepasst.
+Diese Anleitung beschreibt die Installation von Icinga innerhalb eines [Uberspaces](https://uberspace.de/).
 
 ## Installation
 
